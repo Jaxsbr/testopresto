@@ -44,3 +44,15 @@ entries:
     result: pass
     notes: "All structural criteria now addressed. Phase ready for completion check."
     tokens: ~1000
+  - task: 7
+    type: completion-gate
+    story: phase
+    description: "Phase Completion Gate — all 15 done-when criteria verified met."
+    result: pass
+    notes: |
+      Evidence summary:
+      - US-01: index.html (DOCTYPE+html), 4 sections, 30+ CSS rules, no JS errors, table+data-attrs, Georgia/Courier fonts, 4+ colors
+      - US-02: button present, textContent changes on click, 12 outcomes, addEventListener, no innerHTML
+      - Phase: no external deps, README one-liner, AGENTS.md updated
+      AGENTS.md consistency check: pass. Error-path spot check: N/A (static HTML).
+    tokens: ~1000

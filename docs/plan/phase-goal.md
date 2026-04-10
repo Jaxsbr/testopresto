@@ -25,9 +25,9 @@ Build a hilariously over-the-top static HTML comedy page that validates the SABS
 - [x] Button outcome text is inserted via `textContent`, `innerText`, or DOM text node — not `innerHTML` (verifiable: grep confirms no `innerHTML` usage in JS) [US-02]
 
 #### Structural criteria
-- [ ] No external dependencies — page loads without network requests to CDNs or external APIs (Playwright: no failed network requests on load, no `<script src="http` or `<link href="http` in source) [phase]
-- [ ] `README.md` includes a one-liner on what the page is and how to open it [phase]
-- [ ] `AGENTS.md` reflects the static HTML page structure introduced in this phase [phase]
+- [x] No external dependencies — page loads without network requests to CDNs or external APIs (Playwright: no failed network requests on load, no `<script src="http` or `<link href="http` in source) [phase]
+- [x] `README.md` includes a one-liner on what the page is and how to open it [phase]
+- [x] `AGENTS.md` reflects the static HTML page structure introduced in this phase [phase]
 
 ### Golden principles (phase-relevant)
 - Quality checks are enforced: `no-silent-pass`, `no-bare-except`, `error-path-coverage`, `agents-consistency`
