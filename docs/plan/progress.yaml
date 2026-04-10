@@ -17,7 +17,7 @@ state:
 
   # --- Task orchestration (owner: iterator) ---
   task_number: 1
-  next_task: null
+  next_task: "[US-01] Create index.html with HTML5 structure, 3+ humor sections with dashboard-style markup, CSS with 10+ rules, non-default font, 3+ distinct colors, and absurdist corporate-parody theme"
   last_result: null
   consecutive_fails: 0
 
