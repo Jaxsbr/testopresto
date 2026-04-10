@@ -56,3 +56,10 @@ entries:
       - Phase: no external deps, README one-liner, AGENTS.md updated
       AGENTS.md consistency check: pass. Error-path spot check: N/A (static HTML).
     tokens: ~1000
+  - task: 8
+    type: review
+    story: phase
+    description: "PR #1 created. Review task scheduled: review-pr pr=1 auto=true."
+    result: pass
+    notes: "PR: https://github.com/Jaxsbr/testopresto/pull/1"
+    tokens: ~500
