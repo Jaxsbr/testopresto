@@ -9,13 +9,13 @@ Build a hilariously over-the-top static HTML comedy page that validates the SABS
 ### Done-when (observable)
 
 #### US-01 criteria
-- [ ] `index.html` exists in project root and contains `<!DOCTYPE html>` declaration and `<html>` tag [US-01]
-- [ ] Page contains at least 3 distinct `<section>` or heading-delimited content blocks with humor text (verifiable: grep finds >= 3 `<section` or `<h2` tags) [US-01]
-- [ ] CSS is applied via `<style>` block or linked `.css` file with at least 10 rule declarations (verifiable: count CSS rules in source) [US-01]
-- [ ] Page renders without JavaScript errors on load (Playwright: no uncaught exceptions during page.goto) [US-01]
-- [ ] At least one section contains dashboard-style markup — a `<table>` or grid of elements displaying numeric or status values with labels (verifiable: grep finds `<table` or elements with data-label/data-value attributes within a section) [US-01]
-- [ ] Page uses a non-default font — CSS contains at least one `font-family` declaration that is not solely a generic family keyword (verifiable: grep for `font-family` in CSS) [US-01]
-- [ ] Page uses at least 3 distinct non-black/white color values in CSS (verifiable: count unique `color`, `background-color`, or `background` hex/rgb/hsl values) [US-01]
+- [x] `index.html` exists in project root and contains `<!DOCTYPE html>` declaration and `<html>` tag [US-01]
+- [x] Page contains at least 3 distinct `<section>` or heading-delimited content blocks with humor text (verifiable: grep finds >= 3 `<section` or `<h2` tags) [US-01]
+- [x] CSS is applied via `<style>` block or linked `.css` file with at least 10 rule declarations (verifiable: count CSS rules in source) [US-01]
+- [x] Page renders without JavaScript errors on load (Playwright: no uncaught exceptions during page.goto) [US-01]
+- [x] At least one section contains dashboard-style markup — a `<table>` or grid of elements displaying numeric or status values with labels (verifiable: grep finds `<table` or elements with data-label/data-value attributes within a section) [US-01]
+- [x] Page uses a non-default font — CSS contains at least one `font-family` declaration that is not solely a generic family keyword (verifiable: grep for `font-family` in CSS) [US-01]
+- [x] Page uses at least 3 distinct non-black/white color values in CSS (verifiable: count unique `color`, `background-color`, or `background` hex/rgb/hsl values) [US-01]
 
 #### US-02 criteria
 - [ ] A `<button>` element exists and is visible in the viewport on page load (Playwright: button is visible without scrolling) [US-02]
