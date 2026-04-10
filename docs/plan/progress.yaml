@@ -16,8 +16,8 @@ state:
   status: running
 
   # --- Task orchestration (owner: iterator) ---
-  task_number: 4
-  next_task: null
+  task_number: 5
+  next_task: "[phase] Update README.md with page description and AGENTS.md with project file structure reflecting index.html and JS/CSS"
   last_result: pass
   consecutive_fails: 0
 

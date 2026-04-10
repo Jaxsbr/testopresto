@@ -30,3 +30,10 @@ entries:
     result: pass
     notes: "All 5 US-02 criteria met. US-02 complete. Both stories done — structural criteria remain."
     tokens: ~2000
+  - task: 5
+    type: investigate
+    story: phase
+    description: "Both stories complete. External deps criterion met. README and AGENTS.md still need updates."
+    result: pass
+    notes: "Queued combined docs task for remaining structural criteria."
+    tokens: ~500
