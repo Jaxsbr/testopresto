@@ -296,6 +296,66 @@
       margin-top: 0.25rem;
     }
 
+    /* Synergy report generator */
+    .synergy-generator {
+      text-align: center;
+      padding: 2rem 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .synergy-generator .prompt {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .synergy-btn {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bg-deep);
+      background: var(--neon-green);
+      border: none;
+      padding: 0.9rem 2.5rem;
+      cursor: pointer;
+      border-radius: 3px;
+      box-shadow: var(--glow-green), inset 0 1px 0 rgba(255,255,255,0.2);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .synergy-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(0, 255, 65, 0.5), 0 0 60px rgba(0, 255, 65, 0.2);
+    }
+
+    .synergy-btn:active {
+      transform: translateY(0);
+      background: var(--neon-teal);
+    }
+
+    .synergy-result {
+      margin-top: 1.5rem;
+      min-height: 3.5rem;
+      padding: 1rem;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--neon-teal);
+      border: 1px dashed var(--border-subtle);
+      border-radius: 4px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: opacity 0.2s ease;
+    }
+
+    .synergy-result.flash {
+      opacity: 0;
+    }
+
     footer {
       text-align: center;
       padding: 2rem 1rem;
@@ -315,6 +375,12 @@
       SYSTEM UPTIME: <span>847 DAYS, 13 HRS, 42 MIN</span> &bull; LAST SYNERGY AUDIT: 0.3 SEC AGO
     </div>
   </header>
+
+  <div class="synergy-generator">
+    <div class="prompt">&#9656; Initiate Synergy Analysis Protocol &#9666;</div>
+    <button class="synergy-btn" id="synergy-btn">Generate Synergy Report</button>
+    <div class="synergy-result" id="synergy-result">Awaiting operator input. Press the button to activate the Synergy Analysis Engine&trade;.</div>
+  </div>
 
   <main>
     <!-- Section 1: Core Metrics Dashboard (table) -->
@@ -451,7 +517,40 @@
   </footer>
 
   <script>
-    /* Placeholder for US-02 interactive button — added in a later task */
+    (function () {
+      var outcomes = [
+        "REPORT: Synergy levels have exceeded theoretical limits. Physics department notified. They are \"concerned\" but also \"impressed.\"",
+        "REPORT: The algorithm detected 847% more synergy after Dave brought donuts. Recommending permanent donut budget line item. ROI: infinite.",
+        "ALERT: Synergy reserves critically low in Sector 7-G. Root cause: someone said \"let's take this offline\" and actually did. No one has seen them since.",
+        "REPORT: Cross-departmental synergy handshake protocol completed. 14 new acronyms generated. No one knows what any of them mean. Morale is up 23%.",
+        "WARNING: Recursive synergy loop detected. The team is synergizing about how to synergize better. Productivity has entered a quantum superposition of high and zero.",
+        "REPORT: Emergency synergy audit complete. Found 3 orphaned action items from 2019. One action item has developed sentience and is requesting PTO.",
+        "ALERT: The motivational poster in Conference Room B has fallen off the wall. Team morale dropped 47%. Maintenance dispatched with industrial adhesive and a therapist.",
+        "REPORT: Meeting-to-work ratio has reached 97:3. The 3% work is Jeff, who hasn't checked his calendar in six weeks. Jeff is the most productive employee.",
+        "WARNING: Someone replied-all to the reply-all about not replying-all. The email server is now running on pure irony. Uptime: 99.97%.",
+        "REPORT: The stapler situation has escalated. Floor 3 has declared stapler independence. Floor 5 has imposed stapler sanctions. HR is drafting a stapler peace accord.",
+        "ALERT: Coffee machine on Floor 2 has unionized with the printer. Their demands: better beans and less Comic Sans. Negotiations ongoing.",
+        "REPORT: Quarterly synergy forecast: Q1 synergy was \"vibes-based\", Q2 was \"unprecedented\", Q3 is projected as \"paradigm-shifting\", Q4 is classified."
+      ];
+
+      var lastIndex = -1;
+      var btn = document.getElementById("synergy-btn");
+      var result = document.getElementById("synergy-result");
+
+      btn.addEventListener("click", function () {
+        var index;
+        do {
+          index = Math.floor(Math.random() * outcomes.length);
+        } while (index === lastIndex && outcomes.length > 1);
+        lastIndex = index;
+
+        result.classList.add("flash");
+        setTimeout(function () {
+          result.textContent = outcomes[index];
+          result.classList.remove("flash");
+        }, 200);
+      });
+    })();
   </script>
 </body>
 </html>
