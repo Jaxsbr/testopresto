@@ -16,8 +16,8 @@ state:
   status: running
 
   # --- Task orchestration (owner: iterator) ---
-  task_number: 2
-  next_task: null
+  task_number: 3
+  next_task: "[US-02] Add interactive comedy button with 5+ randomized outcomes, addEventListener binding, textContent rendering, and prominent placement above the fold"
   last_result: pass
   consecutive_fails: 0
 

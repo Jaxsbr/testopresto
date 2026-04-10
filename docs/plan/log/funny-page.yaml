@@ -16,3 +16,10 @@ entries:
     result: pass
     notes: "All 7 US-01 criteria met. US-01 complete. Story milestone committed."
     tokens: ~3000
+  - task: 3
+    type: investigate
+    story: US-02
+    description: "US-01 complete. US-02 unmet (button, outcomes, addEventListener, textContent). Queued US-02 implementation."
+    result: pass
+    notes: "Structural criteria also unmet — will address after US-02."
+    tokens: ~500
