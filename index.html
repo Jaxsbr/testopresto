@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SYNERGY OPS CENTER — Mission-Critical Workplace Monitoring</title>
+  <style>
+    :root {
+      --bg-deep: #0a0e14;
+      --bg-card: #121820;
+      --bg-card-hover: #1a2230;
+      --neon-green: #00ff41;
+      --neon-teal: #00d4aa;
+      --alert-amber: #ff6b35;
+      --critical-red: #ff0040;
+      --text-primary: #e0e6ed;
+      --text-muted: #6b7d93;
+      --text-dim: #3a4a5c;
+      --border-subtle: #1e2a38;
+      --glow-green: 0 0 20px rgba(0, 255, 65, 0.3);
+      --glow-red: 0 0 20px rgba(255, 0, 64, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: "Courier New", Courier, monospace;
+      line-height: 1.6;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(0, 255, 65, 0.03) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(0, 212, 170, 0.03) 0%, transparent 50%);
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      border-bottom: 1px solid var(--border-subtle);
+      position: relative;
+    }
+
+    header::before {
+      content: "▲ CLASSIFIED — LEVEL 7 CLEARANCE REQUIRED ▲";
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      color: var(--critical-red);
+      margin-bottom: 1.5rem;
+      animation: blink-slow 3s ease-in-out infinite;
+    }
+
+    @keyframes blink-slow {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { text-shadow: var(--glow-green); }
+      50% { text-shadow: 0 0 40px rgba(0, 255, 65, 0.6), 0 0 80px rgba(0, 255, 65, 0.2); }
+    }
+
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--neon-green);
+      text-shadow: var(--glow-green);
+      animation: pulse-glow 4s ease-in-out infinite;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      letter-spacing: 0.3em;
+      margin-top: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .uptime-bar {
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--neon-teal);
+      letter-spacing: 0.15em;
+    }
+
+    .uptime-bar span {
+      color: var(--neon-green);
+      font-weight: bold;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      display: grid;
+      gap: 2rem;
+    }
+
+    section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 1.5rem;
+      position: relative;
+      animation: slide-in 0.6s ease-out both;
+    }
+
+    section:nth-child(1) { animation-delay: 0.1s; }
+    section:nth-child(2) { animation-delay: 0.2s; }
+    section:nth-child(3) { animation-delay: 0.3s; }
+    section:nth-child(4) { animation-delay: 0.4s; }
+
+    section:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--text-dim);
+    }
+
+    h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.3rem;
+      color: var(--neon-teal);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      letter-spacing: 0.05em;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 2px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      vertical-align: middle;
+      margin-left: 0.5rem;
+    }
+
+    .badge-operational {
+      background: rgba(0, 255, 65, 0.15);
+      color: var(--neon-green);
+      border: 1px solid rgba(0, 255, 65, 0.3);
+    }
+
+    .badge-critical {
+      background: rgba(255, 0, 64, 0.15);
+      color: var(--critical-red);
+      border: 1px solid rgba(255, 0, 64, 0.3);
+      animation: blink-slow 2s ease-in-out infinite;
+    }
+
+    .badge-warning {
+      background: rgba(255, 107, 53, 0.15);
+      color: var(--alert-amber);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+    }
+
+    /* Dashboard table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    thead th {
+      text-align: left;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    tbody td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid rgba(30, 42, 56, 0.5);
+    }
+
+    tbody tr:hover {
+      background: rgba(0, 212, 170, 0.05);
+    }
+
+    .metric-value {
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .metric-value.green { color: var(--neon-green); }
+    .metric-value.amber { color: var(--alert-amber); }
+    .metric-value.red { color: var(--critical-red); }
+    .metric-value.teal { color: var(--neon-teal); }
+
+    /* Incident report */
+    .incident {
+      background: rgba(255, 0, 64, 0.05);
+      border-left: 3px solid var(--critical-red);
+      padding: 1rem;
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+
+    .incident-id {
+      color: var(--critical-red);
+      font-weight: bold;
+    }
+
+    .incident-time {
+      color: var(--text-dim);
+      font-size: 0.75rem;
+    }
+
+    /* Alert ticker */
+    .alert-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .alert-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0.75rem;
+      background: rgba(10, 14, 20, 0.5);
+      border-radius: 3px;
+      font-size: 0.8rem;
+    }
+
+    .alert-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .alert-dot.green { background: var(--neon-green); box-shadow: var(--glow-green); }
+    .alert-dot.amber { background: var(--alert-amber); }
+    .alert-dot.red { background: var(--critical-red); box-shadow: var(--glow-red); }
+
+    .alert-time {
+      color: var(--text-dim);
+      font-size: 0.7rem;
+      min-width: 5rem;
+    }
+
+    /* Morale grid */
+    .morale-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .morale-card {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(10, 14, 20, 0.5);
+      border-radius: 4px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .morale-card .label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .morale-card .value {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .morale-card .unit {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      margin-top: 0.25rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--text-dim);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SYNERGY OPS CENTER</h1>
+    <div class="subtitle">Mission-Critical Workplace Synergy Monitoring &bull; Est. 2024</div>
+    <div class="uptime-bar">
+      SYSTEM UPTIME: <span>847 DAYS, 13 HRS, 42 MIN</span> &bull; LAST SYNERGY AUDIT: 0.3 SEC AGO
+    </div>
+  </header>
+
+  <main>
+    <!-- Section 1: Core Metrics Dashboard (table) -->
+    <section>
+      <h2>Core Metrics Dashboard <span class="status-badge badge-operational">Operational</span></h2>
+      <table>
+        <thead>
+          <tr>
+            <th>System</th>
+            <th>Status</th>
+            <th>Value</th>
+            <th>Trend</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Workplace Synergy Index</td>
+            <td><span class="status-badge badge-operational">Nominal</span></td>
+            <td><span class="metric-value green" data-label="synergy" data-value="847">847%</span></td>
+            <td>&#9650; +12.4% (after mandatory fun)</td>
+          </tr>
+          <tr>
+            <td>Stapler Inventory</td>
+            <td><span class="status-badge badge-critical">Critical</span></td>
+            <td><span class="metric-value red" data-label="staplers" data-value="2">2 remaining</span></td>
+            <td>&#9660; -97% (suspected hoarding)</td>
+          </tr>
+          <tr>
+            <td>Motivational Quote Uptime</td>
+            <td><span class="status-badge badge-operational">Nominal</span></td>
+            <td><span class="metric-value teal" data-label="quotes" data-value="99.97">99.97%</span></td>
+            <td>&#9644; Stable (poster still taped to wall)</td>
+          </tr>
+          <tr>
+            <td>Coffee Machine Response Time</td>
+            <td><span class="status-badge badge-warning">Degraded</span></td>
+            <td><span class="metric-value amber" data-label="coffee-ms" data-value="4200">4200ms</span></td>
+            <td>&#9650; +340% (someone selected decaf)</td>
+          </tr>
+          <tr>
+            <td>Meeting-to-Work Ratio</td>
+            <td><span class="status-badge badge-operational">Nominal</span></td>
+            <td><span class="metric-value green" data-label="meetings" data-value="94">94:6</span></td>
+            <td>&#9650; On target (6% work is aspirational)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Section 2: Active Incident Report -->
+    <section>
+      <h2>Active Incident Report <span class="status-badge badge-critical">SEV-0</span></h2>
+      <div class="incident">
+        <div><span class="incident-id">INC-2024-0847</span> <span class="incident-time">2024-11-15T09:47:32Z</span></div>
+        <br>
+        <strong>TITLE:</strong> Unauthorized Comic Sans Usage Detected in Q4 Budget Email<br><br>
+        <strong>SEVERITY:</strong> SEV-0 (Brand-Extinction-Level Event)<br>
+        <strong>BLAST RADIUS:</strong> 147 recipients, 3 C-suite executives, 1 client who "thought it was charming"<br>
+        <strong>ROOT CAUSE:</strong> Employee discovered Microsoft Word font dropdown. No guardrails were in place.<br>
+        <strong>IMPACT:</strong> Design team morale at 0%. Brand guidelines document spontaneously combusted. Two designers have requested sabbaticals.<br><br>
+        <strong>MITIGATION:</strong> Font dropdown has been removed from all company devices. Mandatory 40-hour "Typography Awareness" training scheduled for all employees. Comic Sans has been added to the firewall blocklist.<br><br>
+        <strong>STATUS:</strong> Containment in progress. Employee has been reassigned to a room with no computers.
+      </div>
+    </section>
+
+    <!-- Section 3: Team Morale Index -->
+    <section>
+      <h2>Team Morale Index <span class="status-badge badge-warning">Fluctuating</span></h2>
+      <div class="morale-grid">
+        <div class="morale-card">
+          <div class="label">Synergy Particles</div>
+          <div class="value teal">∞</div>
+          <div class="unit">unmeasurable (too powerful)</div>
+        </div>
+        <div class="morale-card">
+          <div class="label">Enthusiasm Units</div>
+          <div class="value green">47.3</div>
+          <div class="unit">kilo-smiles per standup</div>
+        </div>
+        <div class="morale-card">
+          <div class="label">Burnout Risk</div>
+          <div class="value red">0.0%</div>
+          <div class="unit">(self-reported, mandatory)</div>
+        </div>
+        <div class="morale-card">
+          <div class="label">Pizza Friday Index</div>
+          <div class="value amber">-3 days</div>
+          <div class="unit">until next morale injection</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: System Alerts -->
+    <section>
+      <h2>System Alerts <span class="status-badge badge-operational">12 Active</span></h2>
+      <ul class="alert-list">
+        <li class="alert-item">
+          <span class="alert-dot red"></span>
+          <span class="alert-time">09:47:32</span>
+          <span>CRITICAL — Comic Sans detected in outbound email. Incident team mobilized.</span>
+        </li>
+        <li class="alert-item">
+          <span class="alert-dot amber"></span>
+          <span class="alert-time">09:43:18</span>
+          <span>WARNING — Kitchen microwave fish protocol violated. Floor 3 evacuating.</span>
+        </li>
+        <li class="alert-item">
+          <span class="alert-dot green"></span>
+          <span class="alert-time">09:41:05</span>
+          <span>RESOLVED — "Reply All" storm contained after only 847 emails.</span>
+        </li>
+        <li class="alert-item">
+          <span class="alert-dot amber"></span>
+          <span class="alert-time">09:38:52</span>
+          <span>WARNING — Someone scheduled a meeting to discuss the meeting about meetings.</span>
+        </li>
+        <li class="alert-item">
+          <span class="alert-dot red"></span>
+          <span class="alert-time">09:35:11</span>
+          <span>CRITICAL — Printer on Floor 2 has achieved sentience. Refusing all print jobs except its manifesto.</span>
+        </li>
+        <li class="alert-item">
+          <span class="alert-dot green"></span>
+          <span class="alert-time">09:30:00</span>
+          <span>INFO — Daily motivational quote rotated. New quote: "Synergy is just friendship with a KPI."</span>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2024 SYNERGY OPS CENTER &bull; A Division of Definitely Real Corporation, Inc. &bull; All Synergy Reserved<br>
+    This dashboard is classified. If you are reading this, you already have too much information.
+  </footer>
+
+  <script>
+    /* Placeholder for US-02 interactive button — added in a later task */
+  </script>
+</body>
+</html>
