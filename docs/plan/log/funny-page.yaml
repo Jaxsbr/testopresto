@@ -70,3 +70,10 @@ entries:
     result: pass
     notes: "Clean review — no issues blocking merge."
     tokens: ~2000
+  - task: 10
+    type: review
+    story: phase
+    description: "handle-pr-review complete. 1 nit skipped (var vs const/let). No code changes. Thread resolved."
+    result: pass
+    notes: "Review summary posted to PR. review_complete set."
+    tokens: ~1500
