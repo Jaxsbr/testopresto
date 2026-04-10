@@ -9,3 +9,10 @@ entries:
     result: pass
     notes: "Phase type: CSS/JS-only. First task targets all US-01 done-when criteria."
     tokens: ~1000
+  - task: 2
+    type: implement
+    story: US-01
+    description: "Created index.html — Synergy Ops Center absurdist dashboard with 4 sections, table, CSS animations, neon color scheme."
+    result: pass
+    notes: "All 7 US-01 criteria met. US-01 complete. Story milestone committed."
+    tokens: ~3000
