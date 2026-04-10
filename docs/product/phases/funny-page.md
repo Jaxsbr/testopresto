@@ -1,0 +1,79 @@
+# Phase: funny-page
+
+Status: draft
+
+## Design direction
+
+Agent's choice — bold, absurdist humor. Over-the-top corporate parody meets error-page comedy. Dramatic typography, unexpected color choices, and content that takes itself way too seriously about something completely ridiculous. Think: a mission-critical status dashboard for something that doesn't matter at all (office stapler inventory, motivational quote uptime, synergy levels). The build-loop should apply the frontend-design skill for implementation.
+
+## Stories
+
+### US-01 — Absurd comedy landing page
+
+As a visitor, I want to see a hilariously over-the-top HTML page, so that I laugh and the SABS pipeline gets validated on real output.
+
+**Acceptance criteria**:
+- Page loads as a valid HTML5 document with CSS styling applied
+- Page contains at least 3 distinct humor sections with visible headings and content
+- Page is visually styled with intentional, non-default typography and color
+
+**User guidance:**
+- Discovery: Open `index.html` in any browser
+- Manual section: N/A (test project — README only)
+- Key steps: Open the file in a browser. Scroll down to see all comedy sections.
+
+**Design rationale:** Static HTML with embedded or linked CSS keeps the project zero-dependency and maximizes build-loop testability — no bundler, server, or framework needed. Humor is delivered through content and styling, not complex interactions.
+
+### US-02 — Interactive comedy button
+
+As a visitor, I want to click a button that produces a different funny result each time, so that the page has replay value and exercises JavaScript functionality.
+
+**Acceptance criteria**:
+- A prominently displayed button is visible on the page
+- Clicking the button visibly changes content on the page (text, style, or both)
+- At least 5 distinct outcomes are possible from repeated clicks
+
+**User guidance:**
+- Discovery: Button is visible on the main page without scrolling
+- Manual section: N/A (test project — README only)
+- Key steps: Click the big button. Read the result. Click again for a different one.
+
+**Design rationale:** A single button with randomized outcomes is the simplest interactive element that exercises JS while remaining fully testable via DOM assertions — can verify text differs after click, and count defined outcomes in source.
+
+## Done-when (observable)
+
+### US-01 criteria
+- [ ] `index.html` exists in project root and contains `<!DOCTYPE html>` declaration and `<html>` tag [US-01]
+- [ ] Page contains at least 3 distinct `<section>` or heading-delimited content blocks with humor text (verifiable: grep finds >= 3 `<section` or `<h2` tags) [US-01]
+- [ ] CSS is applied via `<style>` block or linked `.css` file with at least 10 rule declarations (verifiable: count CSS rules in source) [US-01]
+- [ ] Page renders without JavaScript errors on load (Playwright: no uncaught exceptions during page.goto) [US-01]
+- [ ] At least one section contains dashboard-style markup — a `<table>` or grid of elements displaying numeric or status values with labels (verifiable: grep finds `<table` or elements with data-label/data-value attributes within a section) [US-01]
+- [ ] Page uses a non-default font — CSS contains at least one `font-family` declaration that is not solely a generic family keyword (verifiable: grep for `font-family` in CSS) [US-01]
+- [ ] Page uses at least 3 distinct non-black/white color values in CSS (verifiable: count unique `color`, `background-color`, or `background` hex/rgb/hsl values) [US-01]
+
+### US-02 criteria
+- [ ] A `<button>` element exists and is visible in the viewport on page load (Playwright: button is visible without scrolling) [US-02]
+- [ ] Clicking the button changes the `textContent` of at least one non-button DOM element (Playwright: element text before click !== element text after click) [US-02]
+- [ ] Source code defines at least 5 distinct outcome strings or objects (verifiable: grep/count array or object entries in JS) [US-02]
+- [ ] Button click handler is registered via `addEventListener`, not inline `onclick` attribute (verifiable: grep for `addEventListener` and absence of `onclick=` in HTML) [US-02]
+
+### Structural criteria
+- [ ] No external dependencies — page loads without network requests to CDNs or external APIs (Playwright: no failed network requests on load, no `<script src="http` or `<link href="http` in source) [phase]
+- [ ] `README.md` includes a one-liner on what the page is and how to open it [phase]
+- [ ] `AGENTS.md` reflects the static HTML page structure introduced in this phase [phase]
+
+### Auto-added safety criteria
+
+Safety criteria: N/A — this phase introduces no API endpoints, user input fields, form submissions, or query interpolation. All dynamic content is sourced from code-defined constants, not user input. The button renders predefined strings via `textContent` (not `innerHTML`), eliminating XSS surface.
+
+**Explicit safety constraint (carried to build):** Button outcomes MUST be rendered via `textContent` or equivalent safe DOM API, never `innerHTML`.
+- [ ] Button outcome text is inserted via `textContent`, `innerText`, or DOM text node — not `innerHTML` (verifiable: grep confirms no `innerHTML` usage in JS) [US-02]
+
+## Golden principles (phase-relevant)
+
+- Quality checks are enforced: `no-silent-pass`, `no-bare-except`, `error-path-coverage`, `agents-consistency`
+
+## AGENTS.md sections affected
+
+- May need a `## Structure` or `## Files` section added to reflect `index.html` and any CSS/JS files
+- `## Quality checks` — no changes expected (existing checks remain valid)
