@@ -8,4 +8,4 @@ A sandbox project for testing the SABS (Semi-Autonomous Build System) workflows 
 
 | Phase | Status | Stories | Spec |
 |---|---|---|---|
-| funny-page | Draft | US-01, US-02 | [phases/funny-page.md](phases/funny-page.md) |
+| funny-page | Shipped | US-01, US-02 | [phases/funny-page.md](phases/funny-page.md) |
