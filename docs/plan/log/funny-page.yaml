@@ -37,3 +37,10 @@ entries:
     result: pass
     notes: "Queued combined docs task for remaining structural criteria."
     tokens: ~500
+  - task: 6
+    type: implement
+    story: phase
+    description: "Updated README.md with page one-liner and AGENTS.md with full project structure, key files, behavior rules."
+    result: pass
+    notes: "All structural criteria now addressed. Phase ready for completion check."
+    tokens: ~1000
