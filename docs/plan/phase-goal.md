@@ -18,11 +18,11 @@ Build a hilariously over-the-top static HTML comedy page that validates the SABS
 - [x] Page uses at least 3 distinct non-black/white color values in CSS (verifiable: count unique `color`, `background-color`, or `background` hex/rgb/hsl values) [US-01]
 
 #### US-02 criteria
-- [ ] A `<button>` element exists and is visible in the viewport on page load (Playwright: button is visible without scrolling) [US-02]
-- [ ] Clicking the button changes the `textContent` of at least one non-button DOM element (Playwright: element text before click !== element text after click) [US-02]
-- [ ] Source code defines at least 5 distinct outcome strings or objects (verifiable: grep/count array or object entries in JS) [US-02]
-- [ ] Button click handler is registered via `addEventListener`, not inline `onclick` attribute (verifiable: grep for `addEventListener` and absence of `onclick=` in HTML) [US-02]
-- [ ] Button outcome text is inserted via `textContent`, `innerText`, or DOM text node — not `innerHTML` (verifiable: grep confirms no `innerHTML` usage in JS) [US-02]
+- [x] A `<button>` element exists and is visible in the viewport on page load (Playwright: button is visible without scrolling) [US-02]
+- [x] Clicking the button changes the `textContent` of at least one non-button DOM element (Playwright: element text before click !== element text after click) [US-02]
+- [x] Source code defines at least 5 distinct outcome strings or objects (verifiable: grep/count array or object entries in JS) [US-02]
+- [x] Button click handler is registered via `addEventListener`, not inline `onclick` attribute (verifiable: grep for `addEventListener` and absence of `onclick=` in HTML) [US-02]
+- [x] Button outcome text is inserted via `textContent`, `innerText`, or DOM text node — not `innerHTML` (verifiable: grep confirms no `innerHTML` usage in JS) [US-02]
 
 #### Structural criteria
 - [ ] No external dependencies — page loads without network requests to CDNs or external APIs (Playwright: no failed network requests on load, no `<script src="http` or `<link href="http` in source) [phase]
