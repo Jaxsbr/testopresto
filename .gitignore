@@ -1,0 +1,9 @@
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+credentials.json
+
+# Build loop
+.build-loop.lock
